@@ -22,20 +22,42 @@ function Header() {
       <section id="table-filter">
         <label htmlFor="">
           Coluna
-          <select name="" id="">
-            <option value="">uma opçao aqui</option>
+          <select
+            id="column-filter"
+            name="column-filter"
+            data-testid="column-filter"
+          >
+            <option value="">population</option>
+            <option value="">orbital_period</option>
+            <option value="">diameter</option>
+            <option value="">rotation_period</option>
+            <option value="">surface_water</option>
           </select>
         </label>
         <label htmlFor="">
           Operador
-          <select name="" id="">
-            <option value="">uma opçao aqui</option>
+          <select
+            id="comparison-filter"
+            name="comparison-filter"
+            data-testid="comparison-filter"
+          >
+            <option value="">maior que</option>
+            <option value="">menor que</option>
+            <option value="">igual a</option>
           </select>
         </label>
         <label htmlFor="">
-          <input type="text" />
+          <input
+            type="number"
+            data-testid="value-filter"
+          />
         </label>
-        <button>Filtrar</button>
+        <button
+          id="button-filter"
+          data-testid="button-filter"
+        >
+          Filtrar
+        </button>
         <label htmlFor="">
           Ordenar
           <select name="" id="">
