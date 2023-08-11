@@ -4,7 +4,6 @@ import ContextStarWars from '../../context/user-context';
 
 function Header() {
   const { inputFilter, handleInputFilter } = useContext(ContextStarWars);
-  console.log(inputFilter);
 
   return (
     <form action="">
