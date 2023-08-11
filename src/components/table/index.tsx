@@ -1,4 +1,9 @@
+import useFetchFilter from '../../hooks/useFetchFilter';
+
 function Table() {
+  const { data } = useFetchFilter();
+  console.log(data);
+
   return (
     <table>
       <thead>
@@ -19,7 +24,23 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {}
+        {data.map((obj) => (
+          <tr key={ obj.name }>
+            <td>{obj.name}</td>
+            <td>{obj.rotation_period}</td>
+            <td>{obj.orbital_period}</td>
+            <td>{obj.diameter}</td>
+            <td>{obj.climate}</td>
+            <td>{obj.gravity}</td>
+            <td>{obj.terrain}</td>
+            <td>{obj.surface_water}</td>
+            <td>{obj.population}</td>
+            <td>{obj.films.map((element) => element)}</td>
+            <td>{obj.created}</td>
+            <td>{obj.edited}</td>
+            <td>{obj.url}</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
