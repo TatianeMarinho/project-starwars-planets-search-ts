@@ -1,6 +1,11 @@
 export type UseContextType = {
   data: StarWarsData[];
   setData: React.Dispatch<React.SetStateAction<StarWarsData[]>>;
+  inputFilter: string;
+  setInputFilter: React.Dispatch<React.SetStateAction<string>>;
+  handleInputFilter: (event: React.ChangeEvent<HTMLInputElement>) => void
+  dataFilter: StarWarsData[];
+  setDataFilter: React.Dispatch<React.SetStateAction<StarWarsData[]>>;
 };
 
 export type StarWarsData = {

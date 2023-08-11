@@ -1,13 +1,26 @@
+import { useContext } from 'react';
+import './header.css';
+import ContextStarWars from '../../context/user-context';
+
 function Header() {
+  const { inputFilter, handleInputFilter } = useContext(ContextStarWars);
+  console.log(inputFilter);
+
   return (
     <form action="">
-      <section>
-        <label htmlFor="">
-          Projeto Star Wars - Trybe
-          <input type="text" data-testid="name-filter" />
+      <section id="title-input">
+        <h3>  Projeto Star Wars - Trybe</h3>
+        <label>
+          <input
+            type="text"
+            id="input-filter"
+            value={ inputFilter }
+            onChange={ handleInputFilter }
+            data-testid="name-filter"
+          />
         </label>
       </section>
-      <section>
+      <section id="table-filter">
         <label htmlFor="">
           Coluna
           <select name="" id="">

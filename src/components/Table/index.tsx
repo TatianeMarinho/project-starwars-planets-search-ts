@@ -1,12 +1,15 @@
+import { useContext } from 'react';
 import useFetchFilter from '../../hooks/useFetchFilter';
+import './table.css';
+import ContextStarWars from '../../context/user-context';
 
 function Table() {
   const { data } = useFetchFilter();
-  console.log(data);
+  const { dataFilter } = useContext(ContextStarWars);
 
   return (
     <table>
-      <thead>
+      <thead id="menu-table">
         <tr>
           <th>Name</th>
           <th>Rotation Period</th>
@@ -24,23 +27,41 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {data.map((obj) => (
-          <tr key={ obj.name }>
-            <td>{obj.name}</td>
-            <td>{obj.rotation_period}</td>
-            <td>{obj.orbital_period}</td>
-            <td>{obj.diameter}</td>
-            <td>{obj.climate}</td>
-            <td>{obj.gravity}</td>
-            <td>{obj.terrain}</td>
-            <td>{obj.surface_water}</td>
-            <td>{obj.population}</td>
-            <td>{obj.films.map((element) => element)}</td>
-            <td>{obj.created}</td>
-            <td>{obj.edited}</td>
-            <td>{obj.url}</td>
-          </tr>
-        ))}
+        { dataFilter.length === 0
+          ? data.map((obj) => (
+            <tr key={ obj.name }>
+              <td>{obj.name}</td>
+              <td>{obj.rotation_period}</td>
+              <td>{obj.orbital_period}</td>
+              <td>{obj.diameter}</td>
+              <td>{obj.climate}</td>
+              <td>{obj.gravity}</td>
+              <td>{obj.terrain}</td>
+              <td>{obj.surface_water}</td>
+              <td>{obj.population}</td>
+              <td>{obj.films.map((element) => element)}</td>
+              <td>{obj.created}</td>
+              <td>{obj.edited}</td>
+              <td>{obj.url}</td>
+            </tr>
+          ))
+          : dataFilter.map((obj) => (
+            <tr key={ obj.name }>
+              <td>{obj.name}</td>
+              <td>{obj.rotation_period}</td>
+              <td>{obj.orbital_period}</td>
+              <td>{obj.diameter}</td>
+              <td>{obj.climate}</td>
+              <td>{obj.gravity}</td>
+              <td>{obj.terrain}</td>
+              <td>{obj.surface_water}</td>
+              <td>{obj.population}</td>
+              <td>{obj.films.map((element) => element)}</td>
+              <td>{obj.created}</td>
+              <td>{obj.edited}</td>
+              <td>{obj.url}</td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

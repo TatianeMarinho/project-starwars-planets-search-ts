@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { ReturnApiType } from '../types';
+import { ReturnApiType } from '../types/types';
 import ContextStarWars from '../context/user-context';
 
 function useFetchFilter() {
