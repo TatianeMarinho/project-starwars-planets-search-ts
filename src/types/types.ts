@@ -6,6 +6,13 @@ export type UseContextType = {
   handleInputFilter: (event: React.ChangeEvent<HTMLInputElement>) => void
   dataFilter: StarWarsData[];
   setDataFilter: React.Dispatch<React.SetStateAction<StarWarsData[]>>;
+  numericalValuesFilter: NumericalValuesFilter;
+  setNumericalValuesFilter:React.Dispatch<React.SetStateAction<NumericalValuesFilter>>;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement |
+  HTMLSelectElement>) => void;
+  handleClickFilter: () => void;
+  dataFilterClick: StarWarsData[];
+  setDataFilterClick: React.Dispatch<React.SetStateAction<StarWarsData[]>>;
 };
 
 export type StarWarsData = {
@@ -84,4 +91,16 @@ export type ReturnApiType = {
   created: string;
   edited: string;
   url: string;
+};
+// 'population' | 'orbital_period' | 'diameter' | 'rotation_period' | 'surface_water';
+export type NumericalValuesFilter = {
+  columnFilter: keyof StarWarsData;
+  comparisonFilter: string;
+  valueFilter: string;
+};
+
+export const INICIAL_NUMERICAL_VALUES_FILTER = {
+  columnFilter: 'population',
+  comparisonFilter: 'maior que',
+  valueFilter: '0',
 };

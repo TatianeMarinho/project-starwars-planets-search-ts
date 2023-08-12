@@ -3,7 +3,13 @@ import './header.css';
 import ContextStarWars from '../../context/user-context';
 
 function Header() {
-  const { inputFilter, handleInputFilter } = useContext(ContextStarWars);
+  const {
+    inputFilter,
+    handleInputFilter,
+    numericalValuesFilter,
+    handleInputChange,
+    handleClickFilter,
+  } = useContext(ContextStarWars);
 
   return (
     <form action="">
@@ -24,37 +30,45 @@ function Header() {
           Coluna
           <select
             id="column-filter"
-            name="column-filter"
+            name="columnFilter"
             data-testid="column-filter"
+            onChange={ handleInputChange }
+            value={ numericalValuesFilter.columnFilter }
           >
-            <option value="">population</option>
-            <option value="">orbital_period</option>
-            <option value="">diameter</option>
-            <option value="">rotation_period</option>
-            <option value="">surface_water</option>
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
           </select>
         </label>
         <label htmlFor="">
           Operador
           <select
             id="comparison-filter"
-            name="comparison-filter"
+            name="comparisonFilter"
             data-testid="comparison-filter"
+            onChange={ handleInputChange }
+            value={ numericalValuesFilter.comparisonFilter }
           >
-            <option value="">maior que</option>
-            <option value="">menor que</option>
-            <option value="">igual a</option>
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
           </select>
         </label>
         <label htmlFor="">
           <input
             type="number"
+            name="valueFilter"
             data-testid="value-filter"
+            onChange={ handleInputChange }
+            value={ numericalValuesFilter.valueFilter }
           />
         </label>
         <button
           id="button-filter"
           data-testid="button-filter"
+          onClick={ () => handleClickFilter }
         >
           Filtrar
         </button>
