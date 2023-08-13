@@ -8,7 +8,7 @@ function useFetchFilter() {
   const URL_API = 'https://swapi.dev/api/planets';
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const response = await fetch(URL_API);
         const jsonData = await response.json();
@@ -20,7 +20,7 @@ function useFetchFilter() {
       } catch (err) {
         setError('erro no retorno da api');
       }
-    }
+    };
     fetchData();
   }, []);
 

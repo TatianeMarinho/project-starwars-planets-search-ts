@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import ContextStarWars from './user-context';
 import { INICIAL_NUMERICAL_VALUES_FILTER,
-  NumericalValuesFilter,
   StarWarsData, UserProviderType } from '../types/types';
-import useFilter from '../hooks/useFilter';
 
 function StarWarsProvider({ children }: UserProviderType) {
   const [data, setData] = useState<StarWarsData[]>([]);
@@ -13,8 +11,6 @@ function StarWarsProvider({ children }: UserProviderType) {
     numericalValuesFilter,
     setNumericalValuesFilter,
   ] = useState(INICIAL_NUMERICAL_VALUES_FILTER);
-  const [dataFilterClick, setDataFilterClick] = useState<StarWarsData[]>([]);
-  const { handleFilter } = useFilter();
 
   const handleInputFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const valueInput = event.target.value;
@@ -33,17 +29,9 @@ function StarWarsProvider({ children }: UserProviderType) {
     setNumericalValuesFilter({
       ...numericalValuesFilter,
       [name]: value });
-      console.log(numericalValuesFilter);
   };
+  console.log(numericalValuesFilter);
 
-  const handleClickFilter = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const { columnFilter, comparisonFilter, valueFilter } = numericalValuesFilter;
-    handleFilter(columnFilter, comparisonFilter, valueFilter);
-    setDataFilter(dataFilterClick);
-  };
-  console.log(dataFilterClick);
-  console.log(dataFilter);
   const stateglobal = {
     data,
     setData,
@@ -55,9 +43,6 @@ function StarWarsProvider({ children }: UserProviderType) {
     numericalValuesFilter,
     setNumericalValuesFilter,
     handleInputChange,
-    handleClickFilter,
-    dataFilterClick,
-    setDataFilterClick,
   };
 
   return (

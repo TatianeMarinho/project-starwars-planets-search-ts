@@ -1,15 +1,41 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import './header.css';
 import ContextStarWars from '../../context/user-context';
+import { StarWarsData } from '../../types/types';
 
 function Header() {
   const {
+    data,
     inputFilter,
     handleInputFilter,
     numericalValuesFilter,
     handleInputChange,
-    handleClickFilter,
   } = useContext(ContextStarWars);
+
+  const [filtered, setFiltered] = useState<StarWarsData[]>();
+
+  const { columnFilter, comparisonFilter, valueFilter } = numericalValuesFilter;
+
+  const handleClickFilter = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (comparisonFilter === 'maior que') {
+      const filterdata = data
+        .filter((obj) => Number(obj[
+          columnFilter as keyof StarWarsData]) > Number(valueFilter));
+      setFiltered(filterdata);
+    } if (comparisonFilter === 'menor que') {
+      const filter = data.filter((obj) => Number(obj[
+        columnFilter as keyof StarWarsData]) < Number(valueFilter));
+      setFiltered(filter);
+    } if (comparisonFilter === 'igual a') {
+      const filter = data
+        .filter((obj) => Number(obj[
+          columnFilter as keyof StarWarsData]) === Number(valueFilter));
+      setFiltered(filter);
+    }
+  };
+  console.log(filtered);
 
   return (
     <form action="">
@@ -33,7 +59,7 @@ function Header() {
             name="columnFilter"
             data-testid="column-filter"
             onChange={ handleInputChange }
-            value={ numericalValuesFilter.columnFilter }
+            value={ columnFilter }
           >
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
@@ -49,7 +75,7 @@ function Header() {
             name="comparisonFilter"
             data-testid="comparison-filter"
             onChange={ handleInputChange }
-            value={ numericalValuesFilter.comparisonFilter }
+            value={ comparisonFilter }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
@@ -62,7 +88,7 @@ function Header() {
             name="valueFilter"
             data-testid="value-filter"
             onChange={ handleInputChange }
-            value={ numericalValuesFilter.valueFilter }
+            value={ valueFilter }
           />
         </label>
         <button
