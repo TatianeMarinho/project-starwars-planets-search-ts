@@ -22,7 +22,7 @@ function useFetch() {
       }
     };
     fetchData();
-  }, []);
+  }, [setData]);
 
   return {
     data,
