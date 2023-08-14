@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import ContextStarWars from './user-context';
 import { INICIAL_NUMERICAL_VALUES_FILTER,
+  NumericalValuesFilter,
   StarWarsData, UserProviderType } from '../types/types';
 
 function StarWarsProvider({ children }: UserProviderType) {
   const [data, setData] = useState<StarWarsData[]>([]);
   const [inputFilter, setInputFilter] = useState<string>('');
   const [dataFilter, setDataFilter] = useState<StarWarsData[]>([]);
+  const [
+    multiplesFiltersState,
+    setMultiplesFiltersState] = useState<NumericalValuesFilter[]>([]);
   const [
     numericalValuesFilter,
     setNumericalValuesFilter,
@@ -43,6 +47,8 @@ function StarWarsProvider({ children }: UserProviderType) {
     numericalValuesFilter,
     setNumericalValuesFilter,
     handleInputChange,
+    multiplesFiltersState,
+    setMultiplesFiltersState,
   };
 
   return (

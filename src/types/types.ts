@@ -10,6 +10,9 @@ export type UseContextType = {
   setNumericalValuesFilter:React.Dispatch<React.SetStateAction<NumericalValuesFilter>>;
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement |
   HTMLSelectElement>) => void;
+  multiplesFiltersState: NumericalValuesFilter[];
+  setMultiplesFiltersState: React
+    .Dispatch<React.SetStateAction<NumericalValuesFilter[]>>;
 };
 
 export type StarWarsData = {

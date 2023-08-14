@@ -1,37 +1,37 @@
 import { useContext } from 'react';
 import ContextStarWars from '../../context/user-context';
 import useFetch from '../../hooks/useFetch';
-import { StarWarsData } from '../../types/types';
+import useFilter from '../../hooks/useFilter';
+import { INICIAL_NUMERICAL_VALUES_FILTER } from '../../types/types';
 
 function NumericalFilters() {
   const {
     handleInputChange,
     numericalValuesFilter,
-    dataFilter,
-    setDataFilter } = useContext(ContextStarWars);
+    multiplesFiltersState,
+    setNumericalValuesFilter,
+    setMultiplesFiltersState,
+  } = useContext(ContextStarWars);
   const { columnFilter, comparisonFilter, valueFilter } = numericalValuesFilter;
   const { data } = useFetch();
+  const { dataFilter, multiplesFilters } = useFilter();
   console.log(data);
 
   const handleSubmitButtonFilter = (event: React.
     FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (comparisonFilter === 'maior que') {
-      const filterNumerical = data
-        .filter((obj) => Number(obj[columnFilter as keyof StarWarsData])
-         > Number(valueFilter));
-      setDataFilter(filterNumerical);
-    } else if (comparisonFilter === 'menor que') {
-      const filterNumerical = data
-        .filter((obj) => Number(obj[columnFilter as keyof StarWarsData])
-         < Number(valueFilter));
-      setDataFilter(filterNumerical);
-    } else if (comparisonFilter === 'igual a') {
-      const filterNumerical = data
-        .filter((obj) => Number(obj[columnFilter as keyof StarWarsData])
-         === Number(valueFilter));
-      setDataFilter(filterNumerical);
+    setMultiplesFiltersState([
+      ...multiplesFiltersState,
+      numericalValuesFilter,
+    ]);
+
+    if (dataFilter.length === 0) {
+      multiplesFilters(data);
+    } else {
+      multiplesFilters(dataFilter);
     }
+
+    setNumericalValuesFilter(INICIAL_NUMERICAL_VALUES_FILTER);
   };
   console.log(dataFilter);
   return (
@@ -106,6 +106,16 @@ function NumericalFilters() {
         <button>Ordenar</button>
         <button>Remover Filtros</button>
       </form>
+      {
+        multiplesFiltersState.map((filtered) => (
+          <p key={ `${filtered.columnFilter}${filtered.valueFilter}` }>
+            {filtered.columnFilter}
+            {' '}
+            {filtered.comparisonFilter}
+            {' '}
+            {filtered.valueFilter}
+          </p>))
+      }
 
     </>
   );
