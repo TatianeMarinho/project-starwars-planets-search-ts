@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import useFetchFilter from '../../hooks/useFetchFilter';
 import './table.css';
 import ContextStarWars from '../../context/user-context';
+import useFetch from '../../hooks/useFetch';
 
 function Table() {
-  const { data } = useFetchFilter();
+  const { data } = useFetch();
   const { dataFilter } = useContext(ContextStarWars);
 
   return (

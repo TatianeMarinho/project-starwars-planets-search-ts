@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ReturnApiType } from '../types/types';
 import ContextStarWars from '../context/user-context';
 
-function useFetchFilter() {
+function useFetch() {
   const { data, setData } = useContext(ContextStarWars);
   const [error, setError] = useState<string | null>(null);
   const URL_API = 'https://swapi.dev/api/planets';
@@ -12,11 +12,11 @@ function useFetchFilter() {
       try {
         const response = await fetch(URL_API);
         const jsonData = await response.json();
-        const dataFilter = jsonData.results.map((obj: ReturnApiType) => {
+        const dataFiltered = jsonData.results.map((obj: ReturnApiType) => {
           const { residents, ...restObj } = obj;
           return restObj;
         });
-        setData(dataFilter);
+        setData(dataFiltered);
       } catch (err) {
         setError('erro no retorno da api');
       }
@@ -31,4 +31,4 @@ function useFetchFilter() {
   };
 }
 
-export default useFetchFilter;
+export default useFetch;
