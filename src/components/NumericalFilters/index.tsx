@@ -12,7 +12,6 @@ function NumericalFilters() {
     setNumericalValuesFilter,
     setMultiplesFiltersState,
   } = useContext(ContextStarWars);
-  const { columnFilter, comparisonFilter, valueFilter } = numericalValuesFilter;
   const { data } = useFetch();
   const { dataFilter, multiplesFilters } = useFilter();
   console.log(data);
@@ -33,6 +32,7 @@ function NumericalFilters() {
 
     setNumericalValuesFilter(INICIAL_NUMERICAL_VALUES_FILTER);
   };
+  console.log(numericalValuesFilter);
   console.log(dataFilter);
   return (
     <>
@@ -44,7 +44,7 @@ function NumericalFilters() {
             name="columnFilter"
             data-testid="column-filter"
             onChange={ handleInputChange }
-            value={ columnFilter }
+            value={ numericalValuesFilter.columnFilter }
           >
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
@@ -60,7 +60,7 @@ function NumericalFilters() {
             name="comparisonFilter"
             data-testid="comparison-filter"
             onChange={ handleInputChange }
-            value={ comparisonFilter }
+            value={ numericalValuesFilter.comparisonFilter }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
@@ -73,7 +73,7 @@ function NumericalFilters() {
             name="valueFilter"
             data-testid="value-filter"
             onChange={ handleInputChange }
-            value={ valueFilter }
+            value={ numericalValuesFilter.valueFilter }
           />
         </label>
         <button

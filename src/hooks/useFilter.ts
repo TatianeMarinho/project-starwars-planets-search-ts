@@ -7,23 +7,25 @@ function useFilter() {
     dataFilter,
     setDataFilter,
     numericalValuesFilter } = useContext(ContextStarWars);
-  const { comparisonFilter, columnFilter, valueFilter } = numericalValuesFilter;
 
   const multiplesFilters = (dataApi: StarWarsData[]) => {
-    if (comparisonFilter === 'maior que') {
+    if (numericalValuesFilter.comparisonFilter === 'maior que') {
       const filterNumerical = dataApi
-        .filter((obj) => Number(obj[columnFilter as keyof StarWarsData])
-             > Number(valueFilter));
+        .filter((obj) => Number(obj[numericalValuesFilter
+          .columnFilter as keyof StarWarsData])
+             > Number(numericalValuesFilter.valueFilter));
       setDataFilter(filterNumerical);
-    } else if (comparisonFilter === 'menor que') {
+    } else if (numericalValuesFilter.comparisonFilter === 'menor que') {
       const filterNumerical = dataApi
-        .filter((obj) => Number(obj[columnFilter as keyof StarWarsData])
-             < Number(valueFilter));
+        .filter((obj) => Number(obj[numericalValuesFilter
+          .columnFilter as keyof StarWarsData])
+             < Number(numericalValuesFilter.valueFilter));
       setDataFilter(filterNumerical);
-    } else if (comparisonFilter === 'igual a') {
+    } else if (numericalValuesFilter.comparisonFilter === 'igual a') {
       const filterNumerical = dataApi
-        .filter((obj) => Number(obj[columnFilter as keyof StarWarsData])
-             === Number(valueFilter));
+        .filter((obj) => Number(obj[numericalValuesFilter
+          .columnFilter as keyof StarWarsData])
+             === Number(numericalValuesFilter.valueFilter));
       setDataFilter(filterNumerical);
     } return false;
   };
