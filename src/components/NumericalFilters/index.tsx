@@ -1,10 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ContextStarWars from '../../context/user-context';
 import useFetch from '../../hooks/useFetch';
 import useFilter from '../../hooks/useFilter';
 import { INICIAL_NUMERICAL_VALUES_FILTER } from '../../types/types';
 
 function NumericalFilters() {
+  const optionsCollumn = [
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+
+  const [optionsCollumnState, setOptionsCollumnState] = useState(optionsCollumn);
   const {
     handleInputChange,
     numericalValuesFilter,
@@ -32,6 +36,15 @@ function NumericalFilters() {
 
     setNumericalValuesFilter(INICIAL_NUMERICAL_VALUES_FILTER);
   };
+
+  useEffect(() => {
+    if (multiplesFiltersState.length > 0) {
+      const collumn = multiplesFiltersState.map((filters) => filters.columnFilter);
+      const newOptionsCollumn = optionsCollumn
+        .filter((option) => !collumn.includes(option));
+      setOptionsCollumnState(newOptionsCollumn);
+    }
+  }, [multiplesFiltersState]);
   console.log(numericalValuesFilter);
   console.log(dataFilter);
   return (
@@ -46,11 +59,11 @@ function NumericalFilters() {
             onChange={ handleInputChange }
             value={ numericalValuesFilter.columnFilter }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            {
+              optionsCollumnState.map((option) => (
+                <option value={ option } key={ option }>{ option }</option>
+              ))
+           }
           </select>
         </label>
         <label>
