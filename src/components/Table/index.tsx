@@ -27,7 +27,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        { dataFilter.length === 0
+        { (dataFilter.length === 0)
           ? data.map((obj) => (
             <tr key={ obj.name }>
               <td>{obj.name}</td>

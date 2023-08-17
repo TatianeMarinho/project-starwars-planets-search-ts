@@ -34,7 +34,6 @@ function StarWarsProvider({ children }: UserProviderType) {
       ...numericalValuesFilter,
       [name]: value });
   };
-  console.log(numericalValuesFilter);
 
   const stateglobal = {
     data,

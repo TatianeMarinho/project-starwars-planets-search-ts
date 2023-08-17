@@ -16,37 +16,30 @@ function NumericalFilters() {
     multiplesFiltersState,
     setNumericalValuesFilter,
     setMultiplesFiltersState,
-    setDataFilter,
   } = useContext(ContextStarWars);
+  const { multiplesFilters } = useFilter();
   const { data } = useFetch();
-  const { dataFilter, multiplesFilters } = useFilter();
-  console.log(data);
 
   const handleSubmitButtonFilter = (event: React.
     FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const filtered = numericalValuesFilter;
+    console.log(filtered);
     setMultiplesFiltersState([
       ...multiplesFiltersState,
-      numericalValuesFilter,
+      { ...filtered },
     ]);
-
-    if (dataFilter.length === 0) {
-      multiplesFilters(data, numericalValuesFilter);
-    } else {
-      multiplesFilters(dataFilter, numericalValuesFilter);
-    }
-
     setNumericalValuesFilter(INICIAL_NUMERICAL_VALUES_FILTER);
   };
 
   useEffect(() => {
     if (multiplesFiltersState.length > 0) {
-      const collumn = multiplesFiltersState.map((filters) => filters.columnFilter);
+      const collumn = multiplesFiltersState.map((filters) => (filters.columnFilter));
       const newOptionsCollumn = optionsCollumn
         .filter((option) => !collumn.includes(option));
       setOptionsCollumnState(newOptionsCollumn);
     }
+    multiplesFilters(data, multiplesFiltersState);
   }, [multiplesFiltersState]);
 
   const handleDeleteFilter = (columnFilter: string) => {
@@ -57,12 +50,8 @@ function NumericalFilters() {
       ...optionsCollumnState,
       columnFilter,
     ]);
-    setDataFilter([]);
-    if (multiplesFiltersState.length !== 0) {
-      multiplesFiltersState.forEach((objFilter) => multiplesFilters(data, objFilter));
-    }
   };
-  console.log(multiplesFiltersState);
+
   return (
     <>
       <form onSubmit={ handleSubmitButtonFilter }>
@@ -113,7 +102,7 @@ function NumericalFilters() {
           Filtrar
         </button>
       </form>
-      <form action="submit">
+      <form>
         <label htmlFor="">
           Ordenar
           <select name="" id="">
@@ -133,7 +122,14 @@ function NumericalFilters() {
           Descendente
         </label>
         <button>Ordenar</button>
-        <button>Remover Filtros</button>
+        <button
+          type="button"
+          onClick={ () => setMultiplesFiltersState([]) }
+          data-testid="button-remove-filters"
+        >
+          Remover Filtros
+
+        </button>
       </form>
       {
         multiplesFiltersState.map((filtered) => (
