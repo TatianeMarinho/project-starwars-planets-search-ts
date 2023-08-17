@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import ContextStarWars from '../../context/user-context';
 import useFetch from '../../hooks/useFetch';
 import useFilter from '../../hooks/useFilter';
-import './numericalFilters.css';
 import { INICIAL_NUMERICAL_VALUES_FILTER } from '../../types/types';
 
 function NumericalFilters() {
