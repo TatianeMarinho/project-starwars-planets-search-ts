@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import ContextStarWars from '../../context/user-context';
 import useFetch from '../../hooks/useFetch';
 import useFilter from '../../hooks/useFilter';
+import './numericalFilters.css';
 import { INICIAL_NUMERICAL_VALUES_FILTER } from '../../types/types';
 
 function NumericalFilters() {
@@ -15,6 +16,7 @@ function NumericalFilters() {
     multiplesFiltersState,
     setNumericalValuesFilter,
     setMultiplesFiltersState,
+    setDataFilter,
   } = useContext(ContextStarWars);
   const { data } = useFetch();
   const { dataFilter, multiplesFilters } = useFilter();
@@ -23,15 +25,16 @@ function NumericalFilters() {
   const handleSubmitButtonFilter = (event: React.
     FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setMultiplesFiltersState([
       ...multiplesFiltersState,
       numericalValuesFilter,
     ]);
 
     if (dataFilter.length === 0) {
-      multiplesFilters(data);
+      multiplesFilters(data, numericalValuesFilter);
     } else {
-      multiplesFilters(dataFilter);
+      multiplesFilters(dataFilter, numericalValuesFilter);
     }
 
     setNumericalValuesFilter(INICIAL_NUMERICAL_VALUES_FILTER);
@@ -45,8 +48,21 @@ function NumericalFilters() {
       setOptionsCollumnState(newOptionsCollumn);
     }
   }, [multiplesFiltersState]);
-  console.log(numericalValuesFilter);
-  console.log(dataFilter);
+
+  const handleDeleteFilter = (columnFilter: string) => {
+    const updatedFilters = multiplesFiltersState
+      .filter((obj) => obj.columnFilter !== columnFilter);
+    setMultiplesFiltersState(updatedFilters);
+    setOptionsCollumnState([
+      ...optionsCollumnState,
+      columnFilter,
+    ]);
+    setDataFilter([]);
+    if (multiplesFiltersState.length !== 0) {
+      multiplesFiltersState.forEach((objFilter) => multiplesFilters(data, objFilter));
+    }
+  };
+  console.log(multiplesFiltersState);
   return (
     <>
       <form onSubmit={ handleSubmitButtonFilter }>
@@ -121,13 +137,25 @@ function NumericalFilters() {
       </form>
       {
         multiplesFiltersState.map((filtered) => (
-          <p key={ `${filtered.columnFilter}${filtered.valueFilter}` }>
-            {filtered.columnFilter}
-            {' '}
-            {filtered.comparisonFilter}
-            {' '}
-            {filtered.valueFilter}
-          </p>))
+          <div
+            key={ `${Math.random()}` }
+            data-testid="filter"
+          >
+            <p>
+              {filtered.columnFilter}
+              {' '}
+              {filtered.comparisonFilter}
+              {' '}
+              {filtered.valueFilter}
+            </p>
+            <button
+              className="button-delete"
+              onClick={ () => handleDeleteFilter(filtered.columnFilter) }
+            >
+              X
+            </button>
+
+          </div>))
       }
 
     </>
