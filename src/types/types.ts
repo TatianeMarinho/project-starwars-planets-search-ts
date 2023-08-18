@@ -13,6 +13,10 @@ export type UseContextType = {
   multiplesFiltersState: NumericalValuesFilter[];
   setMultiplesFiltersState: React
     .Dispatch<React.SetStateAction<NumericalValuesFilter[]>>;
+  setOrderState: React.Dispatch<React.SetStateAction<OrderStateType>>;
+  orderState: OrderStateType;
+  handleChangeOrder: (event: React.
+    ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 };
 
 export type StarWarsData = {
@@ -103,4 +107,14 @@ export const INICIAL_NUMERICAL_VALUES_FILTER = {
   columnFilter: 'population',
   comparisonFilter: 'maior que',
   valueFilter: '0',
+};
+
+export const INICIAL_ORDER = {
+  column: 'population',
+  sort: 'ASC',
+};
+
+export type OrderStateType = {
+  column: string;
+  sort: string;
 };

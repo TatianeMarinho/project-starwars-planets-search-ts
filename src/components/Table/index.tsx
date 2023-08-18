@@ -30,7 +30,7 @@ function Table() {
         { (dataFilter.length === 0)
           ? data.map((obj) => (
             <tr key={ obj.name }>
-              <td>{obj.name}</td>
+              <td data-testid="planet-name">{obj.name}</td>
               <td>{obj.rotation_period}</td>
               <td>{obj.orbital_period}</td>
               <td>{obj.diameter}</td>
@@ -47,7 +47,7 @@ function Table() {
           ))
           : dataFilter.map((obj) => (
             <tr key={ obj.name }>
-              <td>{obj.name}</td>
+              <td data-testid="planet-name">{obj.name}</td>
               <td>{obj.rotation_period}</td>
               <td>{obj.orbital_period}</td>
               <td>{obj.diameter}</td>

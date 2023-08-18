@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import ContextStarWars from '../../context/user-context';
 import useFetch from '../../hooks/useFetch';
 import useFilter from '../../hooks/useFilter';
-import { INICIAL_NUMERICAL_VALUES_FILTER } from '../../types/types';
+import {
+  INICIAL_NUMERICAL_VALUES_FILTER } from '../../types/types';
 
 function NumericalFilters() {
   const optionsCollumn = [
@@ -15,15 +16,17 @@ function NumericalFilters() {
     multiplesFiltersState,
     setNumericalValuesFilter,
     setMultiplesFiltersState,
+    handleChangeOrder,
+    orderState,
   } = useContext(ContextStarWars);
-  const { multiplesFilters } = useFilter();
+  const { multiplesFilters, handleSortOrder } = useFilter();
   const { data } = useFetch();
 
   const handleSubmitButtonFilter = (event: React.
     FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const filtered = numericalValuesFilter;
-    console.log(filtered);
+
     setMultiplesFiltersState([
       ...multiplesFiltersState,
       { ...filtered },
@@ -102,25 +105,49 @@ function NumericalFilters() {
         </button>
       </form>
       <form>
-        <label htmlFor="">
+        <label>
           Ordenar
-          <select name="" id="">
-            <option value="">uma opçao aqui</option>
+          <select
+            name="column"
+            id="column-sort"
+            data-testid="column-sort"
+            value={ orderState.column }
+            onChange={ handleChangeOrder }
+          >
+            {
+              optionsCollumn.map((collumn) => (
+                <option value={ collumn } key={ collumn }>{ collumn }</option>))
+            }
           </select>
         </label>
         <label>
           <input
-            type="checkbox"
+            type="radio"
+            value="ASC"
+            name="sort"
+            checked={ orderState.sort === 'ASC' }
+            onChange={ handleChangeOrder }
+            data-testid="column-sort-input-asc"
           />
           Ascendente
         </label>
         <label>
           <input
-            type="checkbox"
+            type="radio"
+            value="DESC"
+            name="sort"
+            checked={ orderState.sort === 'DESC' }
+            onChange={ handleChangeOrder }
+            data-testid="column-sort-input-desc"
           />
           Descendente
         </label>
-        <button>Ordenar</button>
+        <button
+          onClick={ handleSortOrder }
+          data-testid="column-sort-button"
+        >
+          Ordenar
+        </button>
         <button
           type="button"
           onClick={ () => setMultiplesFiltersState([]) }

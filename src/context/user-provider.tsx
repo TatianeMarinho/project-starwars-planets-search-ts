@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import ContextStarWars from './user-context';
 import { INICIAL_NUMERICAL_VALUES_FILTER,
+  INICIAL_ORDER,
   NumericalValuesFilter,
+  OrderStateType,
   StarWarsData, UserProviderType } from '../types/types';
 
 function StarWarsProvider({ children }: UserProviderType) {
   const [data, setData] = useState<StarWarsData[]>([]);
   const [inputFilter, setInputFilter] = useState<string>('');
   const [dataFilter, setDataFilter] = useState<StarWarsData[]>([]);
+  const [orderState, setOrderState] = useState<OrderStateType>(INICIAL_ORDER);
   const [
     multiplesFiltersState,
     setMultiplesFiltersState] = useState<NumericalValuesFilter[]>([]);
@@ -35,6 +38,15 @@ function StarWarsProvider({ children }: UserProviderType) {
       [name]: value });
   };
 
+  const handleChangeOrder = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = event.target;
+    setOrderState({
+      ...orderState,
+      [name]: value });
+  };
+
   const stateglobal = {
     data,
     setData,
@@ -48,6 +60,9 @@ function StarWarsProvider({ children }: UserProviderType) {
     handleInputChange,
     multiplesFiltersState,
     setMultiplesFiltersState,
+    handleChangeOrder,
+    orderState,
+    setOrderState,
   };
 
   return (
